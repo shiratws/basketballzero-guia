@@ -63,7 +63,6 @@
       margin-bottom: 15px;
       font-size: 1rem;
     }
-    /* Tier List */
     .tier-list {
       display: grid;
       grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
@@ -107,132 +106,46 @@
       font-size: 0.9rem;
       color: #ddd;
     }
-
-    /* Tips */
-    .tips-section {
-      background: #111;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 16px #ff3c3caa;
-      color: #ddd;
-      margin-bottom: 60px;
-    }
-    .tips-section h2 {
-      font-family: 'Orbitron', sans-serif;
-      color: #ff3c3c;
-      margin-bottom: 20px;
-      text-shadow: 0 0 8px #ff3c3c;
-    }
-    .tips-list {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .tips-list li {
-      margin-bottom: 12px;
-      padding-left: 24px;
-      position: relative;
-      font-size: 1rem;
-    }
-    .tips-list li::before {
-      content: "•";
-      color: #ff3c3c;
-      position: absolute;
-      left: 0;
-      font-weight: 900;
-      font-size: 1.3rem;
-      line-height: 1;
-      top: 0;
-    }
-
-    /* Spin da Sorte */
-    #spin {
-      text-align: center;
-      max-width: 420px;
-      margin: 60px auto 80px;
-      user-select: none;
-      position: relative;
-    }
-    #spin h2 {
-      margin-bottom: 25px;
-      color: #ff3c3c;
-      text-shadow: 0 0 6px #ff3c3c;
-      font-size: 2rem;
-    }
+    /* Roleta */
     #wheel {
-      border: 6px solid #ff3c3c;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #ff3c3c88;
-      background: #111;
-      margin: 0 auto;
       display: block;
-      width: 400px;
-      height: 400px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #ff3c3caa;
+      background: #222;
     }
     #spinButton {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background:#ff3c3c;
-      color:#fff;
-      padding: 16px 36px;
-      border-radius: 9999px;
-      cursor:pointer;
-      font-weight:700;
-      user-select:none;
-      box-shadow: 0 0 10px #ff3c3c;
-      transition: background-color 0.3s ease;
-      z-index: 10;
+      display: block;
+      margin: 0 auto 30px;
+      padding: 12px 30px;
+      background: #ff3c3c;
+      border: none;
+      border-radius: 25px;
+      color: white;
       font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
     #spinButton:hover:not(.disabled) {
-      background-color: #ff1a1a;
+      background: #ff6565;
     }
     #spinButton.disabled {
-      cursor: default;
-      opacity: 0.6;
-      pointer-events: none;
+      opacity: 0.5;
+      cursor: not-allowed;
     }
     #result {
-      margin-top: 30px;
-      font-size: 1.3rem;
-      color: #fff;
-      min-height: 70px;
-      font-weight: 600;
-      text-shadow: 0 0 8px #ff3c3c;
-      line-height: 1.4;
-    }
-
-    /* Descubra seu estilo button */
-    #discoverBtn {
-      display: inline-block;
-      margin: 30px auto 60px;
-      padding: 15px 30px;
-      background: #ff3c3c;
-      color: #fff;
+      text-align: center;
       font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 0 16px #ff3c3caa;
-      transition: background-color 0.3s ease;
-      user-select: none;
-      text-align: center;
+      font-size: 1.4rem;
+      color: #ff3c3c;
+      min-height: 50px;
+      margin-bottom: 60px;
     }
-    #discoverBtn:hover {
-      background-color: #ff1a1a;
-    }
-
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 15px 10px;
-      color: #666;
-      font-size: 0.9rem;
-      box-shadow: inset 0 1px 5px #ff3c3c22;
-      user-select: none;
+    /* Dicas list */
+    .dicas-list {
+      list-style: inside disc;
+      margin-left: 10px;
+      color: #ffdede;
     }
   </style>
 </head>
@@ -242,281 +155,218 @@
     <nav>
       <a href="#tierlist">Tier List</a>
       <a href="#spin">Spin da Sorte</a>
-      <a href="#dicas-gerais">Dicas</a>
-      <a href="quiz.html">Descubra seu Estilo</a>
+      <a href="#dicas">Dicas</a>
+      <a href="#quiz">Descubra seu Estilo</a>
     </nav>
   </header>
-
   <main>
+    <!-- Tier List -->
     <section id="tierlist" class="section-padding">
       <h2>Tier List Completa dos Estilos</h2>
-
       <div class="tier-category">
         <h3>S+ Tier</h3>
         <div class="tier-list">
-          <article class="style-card">
-            <div class="name">Basketball God</div>
-            <p class="descriptor">Estilo lendário e mais completo</p>
-            <p>O estilo mais poderoso e raro, domina todas as habilidades com perfeição.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Perfection</div>
-            <p class="descriptor">Velocidade e teleporte incríveis</p>
-            <p>Estilo focado em mobilidade extrema e ataques rápidos que confundem adversários.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Imperador</div>
-            <p class="descriptor">Controle total da partida</p>
-            <p>Domina a quadra com habilidades estratégicas e técnicas avançadas.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Gold</div>
-            <p class="descriptor">Drible e roubo de bola excepcionais</p>
-            <p>Destaque por dribles ágeis e facilidade para roubar a bola, superior ao Imperador.</p>
-          </article>
+          <article class="style-card"><div class="name">Basketball God</div><p class="descriptor">Estilo lendário e mais completo</p><p>O estilo mais poderoso e raro, domina todas as habilidades com perfeição.</p></article>
+          <article class="style-card"><div class="name">Perfection</div><p class="descriptor">Velocidade e teleporte incríveis</p><p>Estilo focado em mobilidade extrema e ataques rápidos que confundem adversários.</p></article>
+          <article class="style-card"><div class="name">Imperador</div><p class="descriptor">Controle total da partida</p><p>Domina a quadra com habilidades estratégicas e técnicas avançadas.</p></article>
+          <article class="style-card"><div class="name">Gold</div><p class="descriptor">Drible e roubo de bola excepcionais</p><p>Destaque por dribles ágeis e facilidade para roubar a bola, superior ao Imperador.</p></article>
         </div>
       </div>
-
       <div class="tier-category">
         <h3>S Tier</h3>
         <div class="tier-list">
-          <article class="style-card">
-            <div class="name">Ace</div>
-            <p class="descriptor">Protagonista versátil</p>
-            <p>Estilo equilibrado com alta agilidade e capacidade de adaptação.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Flash</div>
-            <p class="descriptor">Dribles eletrizantes</p>
-            <p>Velocidade extrema e habilidades para driblar facilmente oponentes.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Star</div>
-            <p class="descriptor">Especialista em enterradas</p>
-            <p>Perito em jogadas aéreas e momentos decisivos.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Copycat</div>
-            <p class="descriptor">Versátil, imita adversários</p>
-            <p>Capaz de copiar habilidades e estratégias dos oponentes.</p>
-          </article>
+          <article class="style-card"><div class="name">Ace</div><p class="descriptor">Protagonista versátil</p><p>Estilo equilibrado com alta agilidade e capacidade de adaptação.</p></article>
+          <article class="style-card"><div class="name">Flash</div><p class="descriptor">Dribles eletrizantes</p><p>Velocidade extrema e habilidades para driblar facilmente oponentes.</p></article>
+          <article class="style-card"><div class="name">Star</div><p class="descriptor">Especialista em enterradas</p><p>Perito em jogadas aéreas e momentos decisivos.</p></article>
+          <article class="style-card"><div class="name">Copycat</div><p class="descriptor">Versátil, imita adversários</p><p>Capaz de copiar habilidades e estratégias dos oponentes.</p></article>
         </div>
       </div>
-
       <div class="tier-category">
         <h3>A Tier</h3>
         <div class="tier-list">
-          <article class="style-card">
-            <div class="name">Giant</div>
-            <p class="descriptor">Dominante no garrafão</p>
-            <p>Forte e imponente, domina rebotes e bloqueios.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Sniper</div>
-            <p class="descriptor">Especialista em arremessos longos</p>
-            <p>Excelente em pontuar de longe com precisão.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Jackpot</div>
-            <p class="descriptor">Aposta na sorte</p>
-            <p>Movimentos imprevisíveis baseados em sorte e surpresa.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Phantom</div>
-            <p class="descriptor">Movimento furtivo e suporte</p>
-            <p>Habilidades para se movimentar rápido e apoiar o time.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Playmaker</div>
-            <p class="descriptor">Mestre das assistências</p>
-            <p>Controle do jogo e criação de oportunidades para o time.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Lock</div>
-            <p class="descriptor">Defesa agressiva</p>
-            <p>Especialista em marcar e roubar a bola com força e precisão.</p>
-          </article>
+          <article class="style-card"><div class="name">Giant</div><p class="descriptor">Dominante no garrafão</p><p>Forte e imponente, domina rebotes e bloqueios.</p></article>
+          <article class="style-card"><div class="name">Sniper</div><p class="descriptor">Especialista em arremessos longos</p><p>Excelente em pontuar de longe com precisão.</p></article>
+          <article class="style-card"><div class="name">Jackpot</div><p class="descriptor">Aposta na sorte</p><p>Movimentos imprevisíveis baseados em sorte e surpresa.</p></article>
+          <article class="style-card"><div class="name">Phantom</div><p class="descriptor">Movimento furtivo e suporte</p><p>Habilidades para se movimentar rápido e apoiar o time.</p></article>
+          <article class="style-card"><div class="name">Playmaker</div><p class="descriptor">Mestre das assistências</p><p>Controle do jogo e criação de oportunidades para o time.</p></article>
+          <article class="style-card"><div class="name">Lock</div><p class="descriptor">Defesa agressiva</p><p>Especialista em marcar e roubar a bola com força e precisão.</p></article>
         </div>
       </div>
-
       <div class="tier-category">
         <h3>B Tier</h3>
         <div class="tier-list">
-          <article class="style-card">
-            <div class="name">Clutch</div>
-            <p class="descriptor">Equilíbrio entre ataque e defesa</p>
-            <p>Estilo sólido, bom para diversas situações de jogo.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Quick</div>
-            <p class="descriptor">Velocidade para surpreender</p>
-            <p>Rápido e ágil, ideal para contra-ataques.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Fetch</div>
-            <p class="descriptor">Especialista em rebotes</p>
-            <p>Focado em garantir posse de bola e segundas chances.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Chuck</div>
-            <p class="descriptor">Estilo divertido e imprevisível</p>
-            <p>Movimentos engraçados para desestabilizar o adversário.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Benchwarmer</div>
-            <p class="descriptor">Estilo básico</p>
-            <p>Ideal para aprender os fundamentos do jogo.</p>
-          </article>
-          <article class="style-card">
-            <div class="name">Rookie</div>
-            <p class="descriptor">Iniciante no basquete</p>
-            <p>Focado no básico para novos jogadores.</p>
-          </article>
+          <article class="style-card"><div class="name">Clutch</div><p class="descriptor">Equilíbrio entre ataque e defesa</p><p>Estilo sólido, bom para diversas situações de jogo.</p></article>
+          <article class="style-card"><div class="name">Quick</div><p class="descriptor">Velocidade para surpreender</p><p>Rápido e ágil, ideal para contra-ataques.</p></article>
+          <article class="style-card"><div class="name">Fetch</div><p class="descriptor">Especialista em rebotes</p><p>Focado em garantir posse de bola e segundas chances.</p></article>
+          <article class="style-card"><div class="name">Chuck</div><p class="descriptor">Estilo divertido e imprevisível</p><p>Movimentos engraçados para desestabilizar o adversário.</p></article>
+          <article class="style-card"><div class="name">Benchwarmer</div><p class="descriptor">Estilo básico</p><p>Ideal para aprender os fundamentos do jogo.</p></article>
+          <article class="style-card"><div class="name">Rookie</div><p class="descriptor">Iniciante no basquete</p><p>Focado no básico para novos jogadores.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="dicas-gerais" class="tips-section">
-      <h2>Dicas Gerais e Estratégias</h2>
-      <ul class="tips-list">
-        <li>Mantenha sempre a defesa ativa e a atenção ao adversário.</li>
-        <li>Use o movimento para confundir o adversário antes de atacar.</li>
-        <li>Treine arremessos de longa distância para abrir espaços na quadra.</li>
-        <li>Na defesa, fique entre o adversário e a cesta para dificultar as finalizações.</li>
-        <li>Comunique-se com seu time para melhor posicionamento e trocas.</li>
-        <li>Controle o ritmo do jogo para impor seu estilo e estratégia.</li>
-      </ul>
-    </section>
-
+    <!-- Roleta -->
     <section id="spin" class="section-padding">
-      <h2>Spin da Sorte</h2>
-      <canvas id="wheel" width="400" height="400" aria-label="Roleta da sorte"></canvas>
+      <h2>Spin da Sorte - Descubra seu Estilo</h2>
+      <canvas id="wheel" width="400" height="400" aria-label="Roleta dos estilos de Basketball Zero"></canvas>
       <button id="spinButton">Girar</button>
       <div id="result" role="alert" aria-live="polite"></div>
     </section>
 
-    <div style="text-align:center;">
-      <button id="discoverBtn" onclick="location.href='quiz.html'">Descubra seu Estilo</button>
-    </div>
+    <!-- Dicas -->
+    <section id="dicas" class="section-padding">
+      <h2>Dicas Importantes para Basketball Zero</h2>
+
+      <h3>Dicas Gerais</h3>
+      <ul class="dicas-list">
+        <li>Controle a movimentação com movimentos suaves para evitar errar passes e dribles.</li>
+        <li>Observe o posicionamento dos adversários para antecipar jogadas e interceptar passes.</li>
+        <li>Use os teleportes para surpreender, mas evite usar repetidamente para não ficar previsível.</li>
+        <li>Treine seus arremessos de três pontos para garantir pontos decisivos em jogos acirrados.</li>
+      </ul>
+
+      <h3>Dicas de Defesa</h3>
+      <ul class="dicas-list">
+        <li>Fique sempre atento ao adversário com a bola e mantenha uma distância para tentar roubar a bola.</li>
+        <li>Use a função de bloqueio (lock) para impedir arremessos fáceis e pressionar o atacante.</li>
+        <li>Movimente-se lateralmente para acompanhar o jogador e forçar erros.</li>
+        <li>Antecipe os dribles do adversário para realizar interceptações e roubos de bola.</li>
+      </ul>
+
+      <h3>Dicas para a Roleta</h3>
+      <ul class="dicas-list">
+        <li>Aproveite o spin para conhecer seu estilo, mas estude e pratique para se especializar nele.</li>
+        <li>Não dependa só da sorte; combine o estilo descoberto com suas habilidades pessoais.</li>
+        <li>Experimente diferentes estilos da roleta para se adaptar a várias situações e times.</li>
+      </ul>
+    </section>
+
+    <!-- Quiz placeholder -->
+    <section id="quiz" class="section-padding">
+      <h2>Descubra seu Estilo</h2>
+      <p>Quer descobrir qual estilo combina mais com você? Em breve teremos um quiz interativo aqui!</p>
+    </section>
+
   </main>
 
-  <footer>
-    &copy; 2025 Basketball Zero - Todos os direitos reservados
-  </footer>
-
   <script>
-    // Spin da Sorte - Roleta
-    const canvas = document.getElementById('wheel');
-    const ctx = canvas.getContext('2d');
-    const spinBtn = document.getElementById('spinButton');
-    const resultDiv = document.getElementById('result');
+    document.addEventListener('DOMContentLoaded', () => {
+      const styles = [
+        { name: "Basketball God", desc: "O estilo mais poderoso e raro, domina todas as habilidades com perfeição." },
+        { name: "Perfection", desc: "Estilo focado em mobilidade extrema e ataques rápidos que confundem adversários." },
+        { name: "Imperador", desc: "Domina a quadra com habilidades estratégicas e técnicas avançadas." },
+        { name: "Gold", desc: "Destaque por dribles ágeis e facilidade para roubar a bola, superior ao Imperador." },
+        { name: "Ace", desc: "Estilo equilibrado com alta agilidade e capacidade de adaptação." },
+        { name: "Flash", desc: "Velocidade extrema e habilidades para driblar facilmente oponentes." },
+        { name: "Star", desc: "Perito em jogadas aéreas e momentos decisivos." },
+        { name: "Copycat", desc: "Capaz de copiar habilidades e estratégias dos oponentes." },
+        { name: "Giant", desc: "Forte e imponente, domina rebotes e bloqueios." },
+        { name: "Sniper", desc: "Excelente em pontuar de longe com precisão." },
+        { name: "Jackpot", desc: "Movimentos imprevisíveis baseados em sorte e surpresa." },
+        { name: "Phantom", desc: "Habilidades para se movimentar rápido e apoiar o time." },
+        { name: "Playmaker", desc: "Controle do jogo e criação de oportunidades para o time." },
+        { name: "Lock", desc: "Especialista em marcar e roubar a bola com força e precisão." },
+        { name: "Clutch", desc: "Estilo sólido, bom para diversas situações de jogo." },
+        { name: "Quick", desc: "Rápido e ágil, ideal para contra-ataques." },
+        { name: "Fetch", desc: "Focado em garantir posse de bola e segundas chances." },
+        { name: "Chuck", desc: "Movimentos engraçados para desestabilizar o adversário." },
+        { name: "Benchwarmer", desc: "Ideal para aprender os fundamentos do jogo." },
+        { name: "Rookie", desc: "Focado no básico para novos jogadores." }
+      ];
 
-    const segments = [
-      "Drible Rápido",
-      "Arremesso Perfeito",
-      "Defesa Firme",
-      "Passe Inteligente",
-      "Enterrada Incrível",
-      "Velocidade Máxima",
-      "Finta Mortal",
-      "Sorte Extra",
-    ];
+      const wheel = document.getElementById('wheel');
+      const ctx = wheel.getContext('2d');
+      const spinButton = document.getElementById('spinButton');
+      const result = document.getElementById('result');
 
-    const colors = [
-      "#ff4c4c",
-      "#ff9068",
-      "#ffbd6f",
-      "#ffee93",
-      "#a0e4ff",
-      "#4ccfff",
-      "#5a5aff",
-      "#ff4cf5",
-    ];
+      const segments = styles.length;
+      const arc = (2 * Math.PI) / segments;
+      let startAngle = 0;
+      let spinTimeout = null;
+      let spinAngleStart = 0;
+      let spinTime = 0;
+      let spinTimeTotal = 0;
 
-    const size = segments.length;
-    const arc = (2 * Math.PI) / size;
-    let startAngle = 0;
-    let spinTimeout = null;
-    let spinAngleStart = 0;
-    let spinTime = 0;
-    let spinTimeTotal = 0;
+      const colors = ['#ff3c3c', '#ff6547'];
 
-    function drawWheel() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      function drawWheel() {
+        ctx.clearRect(0, 0, wheel.width, wheel.height);
+        ctx.lineWidth = 3;
+        ctx.font = 'bold 14px Orbitron, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
 
-      for (let i = 0; i < size; i++) {
-        const angle = startAngle + i * arc;
-        ctx.fillStyle = colors[i];
+        for (let i = 0; i < segments; i++) {
+          let angle = startAngle + i * arc;
+          ctx.fillStyle = colors[i % colors.length];
+          ctx.beginPath();
+          ctx.moveTo(wheel.width / 2, wheel.height / 2);
+          ctx.arc(wheel.width / 2, wheel.height / 2, wheel.width / 2 - 10, angle, angle + arc, false);
+          ctx.lineTo(wheel.width / 2, wheel.height / 2);
+          ctx.fill();
+
+          ctx.save();
+          ctx.fillStyle = '#fff';
+          ctx.translate(
+            wheel.width / 2 + Math.cos(angle + arc / 2) * (wheel.width / 2 - 60),
+            wheel.height / 2 + Math.sin(angle + arc / 2) * (wheel.height / 2 - 60)
+          );
+          ctx.rotate(angle + arc / 2 + Math.PI / 2);
+          ctx.fillText(styles[i].name, -10, 0);
+          ctx.restore();
+        }
+
+        // Indicador da seta (topo)
+        ctx.fillStyle = '#fff';
         ctx.beginPath();
-        ctx.moveTo(canvas.width / 2, canvas.height / 2);
-        ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2 - 10, angle, angle + arc, false);
-        ctx.lineTo(canvas.width / 2, canvas.height / 2);
+        ctx.moveTo(wheel.width / 2 - 18, 20);
+        ctx.lineTo(wheel.width / 2 + 18, 20);
+        ctx.lineTo(wheel.width / 2, 45);
+        ctx.closePath();
         ctx.fill();
-
-        // Texto
-        ctx.save();
-        ctx.fillStyle = "#111";
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate(angle + arc / 2);
-        ctx.textAlign = "right";
-        ctx.font = "bold 16px Orbitron, sans-serif";
-        ctx.fillText(segments[i], canvas.width / 2 - 20, 10);
-        ctx.restore();
       }
 
-      // Ponteiro
-      ctx.fillStyle = "#fff";
-      ctx.beginPath();
-      ctx.moveTo(canvas.width / 2 - 15, 5);
-      ctx.lineTo(canvas.width / 2 + 15, 5);
-      ctx.lineTo(canvas.width / 2, 35);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    function spin() {
-      spinAngleStart = Math.random() * 10 + 10; // velocidade inicial
-      spinTime = 0;
-      spinTimeTotal = Math.random() * 3000 + 4000; // duração do giro
-      spinBtn.disabled = true;
-      spinBtn.classList.add('disabled');
-      resultDiv.textContent = '';
-      rotateWheel();
-    }
-
-    function rotateWheel() {
-      spinTime += 30;
-      if (spinTime >= spinTimeTotal) {
-        stopRotateWheel();
-        return;
+      function spin() {
+        spinAngleStart = Math.random() * 10 + 15; // velocidade inicial
+        spinTime = 0;
+        spinTimeTotal = Math.random() * 3000 + 4000; // duração 4-7 segundos
+        rotateWheel();
+        spinButton.classList.add('disabled');
+        result.textContent = '';
       }
-      const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
-      startAngle += (spinAngle * Math.PI / 180);
+
+      function rotateWheel() {
+        spinTime += 30;
+        if (spinTime >= spinTimeTotal) {
+          stopRotateWheel();
+          return;
+        }
+        const spinAngle = spinAngleStart * (1 - spinTime / spinTimeTotal);
+        startAngle += (spinAngle * Math.PI / 180);
+        drawWheel();
+        spinTimeout = setTimeout(rotateWheel, 30);
+      }
+
+      function stopRotateWheel() {
+        clearTimeout(spinTimeout);
+        const degrees = startAngle * 180 / Math.PI + 90;
+        const arcd = arc * 180 / Math.PI;
+        let index = Math.floor((360 - (degrees % 360)) / arcd);
+        index = index >= segments ? index - segments : index;
+
+        const selected = styles[index];
+        result.innerHTML = `<strong>${selected.name}</strong>: ${selected.desc}`;
+        spinButton.classList.remove('disabled');
+      }
+
+      spinButton.addEventListener('click', () => {
+        if (!spinButton.classList.contains('disabled')) {
+          spin();
+        }
+      });
+
       drawWheel();
-      spinTimeout = setTimeout(rotateWheel, 30);
-    }
-
-    function stopRotateWheel() {
-      clearTimeout(spinTimeout);
-      const degrees = startAngle * 180 / Math.PI + 90;
-      const arcd = arc * 180 / Math.PI;
-      const index = Math.floor((360 - (degrees % 360)) / arcd);
-      const text = segments[index];
-      resultDiv.textContent = `Você tirou: ${text}!`;
-      spinBtn.disabled = false;
-      spinBtn.classList.remove('disabled');
-    }
-
-    function easeOut(t, b, c, d) {
-      const ts = (t/=d)*t;
-      const tc = ts*t;
-      return b+c*(tc + -3*ts + 3*t);
-    }
-
-    spinBtn.addEventListener('click', spin);
-
-    // Inicializa roda
-    drawWheel();
+    });
   </script>
 </body>
 </html>
