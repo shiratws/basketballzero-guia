@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz - Basketball Zero</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    main {
+      background: #151515;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00000080;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #ffffff;
+    }
+
+    #question {
+      font-size: 18px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    #answers button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 15px;
+    }
+
+    #answers button:hover,
+    #answers button.selected {
+      background-color: #00aaff;
+      color: #fff;
+    }
+
+    #next-btn, #back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+
+    #next-btn:disabled {
+      background-color: #444;
+      cursor: not-allowed;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      color: #00ffaa;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Descubra seu Estilo no Basketball Zero</h1>
+    <div id="question">Carregando pergunta...</div>
+    <div id="answers"></div>
+    <button id="next-btn" disabled>Próxima</button>
+    <div id="result"></div>
+    <button id="back-btn" style="display: none;">Voltar para a página principal</button>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        question: "Você prefere atacar ou defender?",
+        answers: [
+          { text: "Atacar com dribles rápidos", styles: ["Flash", "Gold"] },
+          { text: "Armar jogadas com o time", styles: ["Playmaker", "Perfection"] },
+          { text: "Defender e dar tocos", styles: ["Lock", "Giant"] },
+          { text: "Só se divertir com jogadas aleatórias", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Você gosta de fazer passes?",
+        answers: [
+          { text: "Quase nunca, gosto de resolver", styles: ["Flash", "Ace"] },
+          { text: "Sim, adoro armar jogadas", styles: ["Playmaker", "Perfection"] },
+          { text: "Só quando necessário", styles: ["Lock", "Phantom"] },
+          { text: "Passar? Nem sei onde clico", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Se tivesse que ser bom em uma coisa, seria:",
+        answers: [
+          { text: "Drible e velocidade", styles: ["Flash", "Gold"] },
+          { text: "Leitura de jogo e estratégia", styles: ["Playmaker", "Perfection"] },
+          { text: "Defesa forte e posicionamento", styles: ["Lock", "Giant"] },
+          { text: "Confundir os outros e zoar", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Você joga mais sério ou na zoeira?",
+        answers: [
+          { text: "Total foco e tryhard", styles: ["Gold", "Ace"] },
+          { text: "Sério, mas com controle", styles: ["Perfection", "Lock"] },
+          { text: "Só pela zoeira mesmo", styles: ["Chuck"] },
+          { text: "Depende da partida", styles: ["Playmaker", "Flash"] }
+        ]
+      },
+      {
+        question: "Prefere ser bom no ataque ou na defesa?",
+        answers: [
+          { text: "Ataque sempre", styles: ["Ace", "Flash"] },
+          { text: "Defesa ganha jogo", styles: ["Lock", "Giant"] },
+          { text: "Prefiro ajudar de todas as formas", styles: ["Playmaker", "Phantom"] },
+          { text: "Só quero jogar e rir", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Você se considera:",
+        answers: [
+          { text: "Imprevisível e ágil", styles: ["Flash", "Gold"] },
+          { text: "Inteligente e tático", styles: ["Playmaker", "Perfection"] },
+          { text: "Durão e persistente", styles: ["Lock", "Giant"] },
+          { text: "Bobão mas engraçado", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Na hora de defender:",
+        answers: [
+          { text: "Dá o bote com precisão", styles: ["Lock", "Gold"] },
+          { text: "Fica recuado, esperando o erro", styles: ["Phantom", "Playmaker"] },
+          { text: "Vai no toco!", styles: ["Giant", "Lock"] },
+          { text: "Nem defendo, só driblo", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Se você erra um arremesso, você:",
+        answers: [
+          { text: "Já corre para roubar", styles: ["Lock", "Gold"] },
+          { text: "Tenta entender o erro", styles: ["Perfection", "Playmaker"] },
+          { text: "Xinga no chat", styles: ["Chuck"] },
+          { text: "Fica de boa e tenta de novo", styles: ["Ace", "Phantom"] }
+        ]
+      },
+      {
+        question: "Você acha que joga bem?",
+        answers: [
+          { text: "Sou o melhor que existe", styles: ["Gold"] },
+          { text: "Jogo bem em equipe", styles: ["Playmaker", "Perfection"] },
+          { text: "Me viro no que der", styles: ["Phantom", "Giant"] },
+          { text: "Não, mas me divirto", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "O que você faria em 1x1 final?",
+        answers: [
+          { text: "Driblo e finalizo sem dó", styles: ["Gold", "Flash"] },
+          { text: "Faço uma jogada ensaiada", styles: ["Perfection", "Playmaker"] },
+          { text: "Marcação forte e contra-ataque", styles: ["Lock"] },
+          { text: "Faço um fake e erro rindo", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Se pudesse escolher um estilo hoje, seria:",
+        answers: [
+          { text: "Gold", styles: ["Gold"] },
+          { text: "Perfection", styles: ["Perfection"] },
+          { text: "Lock", styles: ["Lock"] },
+          { text: "Chuck kkkkk", styles: ["Chuck"] }
+        ]
+      },
+      {
+        question: "Prefere arremessar de:",
+        answers: [
+          { text: "3 pontos", styles: ["Flash", "Perfection"] },
+          { text: "Dentro do garrafão", styles: ["Ace", "Giant"] },
+          { text: "Qualquer lugar mesmo", styles: ["Gold", "Chuck"] },
+          { text: "Nem arremesso, só passo", styles: ["Playmaker"] }
+        ]
+      },
+      {
+        question: "Quando jogam contra você, dizem que você é:",
+        answers: [
+          { text: "Chato demais na defesa", styles: ["Lock"] },
+          { text: "Rápido que nem raio", styles: ["Flash"] },
+          { text: "Doido da cabeça", styles: ["Chuck"] },
+          { text: "Jogador de equipe", styles: ["Playmaker"] }
+        ]
+      },
+      {
+        question: "Você joga mais com amigos ou solo?",
+        answers: [
+          { text: "Time fechado sempre", styles: ["Playmaker", "Perfection"] },
+          { text: "Solo, faço tudo", styles: ["Gold", "Flash"] },
+          { text: "Prefiro nem falar", styles: ["Chuck"] },
+          { text: "Só defendo o time", styles: ["Lock"] }
+        ]
+      },
+      {
+        question: "Você quer ser conhecido como:",
+        answers: [
+          { text: "O mais habilidoso do servidor", styles: ["Gold", "Flash"] },
+          { text: "O que carrega o time", styles: ["Playmaker", "Perfection"] },
+          { text: "O paredão da defesa", styles: ["Lock", "Giant"] },
+          { text: "O meme ambulante", styles: ["Chuck"] }
+        ]
+      }
+    ];
+
+    const styleDescriptions = {
+      Flash: "Você é veloz, driblador e imprevisível.",
+      Gold: "Você é o topo! Rouba bolas fácil e dribla como ninguém.",
+      Playmaker: "Você joga em equipe e pensa em cada jogada.",
+      Perfection: "Você busca perfeição em cada lance, técnico e preciso.",
+      Ace: "Você é ofensivo e direto, ama enterradas.",
+      Giant: "Você é forte, marca firme e domina o garrafão.",
+      Lock: "Você é defensor nato, especialista em roubos e tocos.",
+      Phantom: "Você é silencioso, rápido e sempre posicionado.",
+      Chuck: "Você é zoeiro, engraçado e imprevisível."
+    };
+
+    let currentQuestion = 0;
+    const scores = {};
+    const questionEl = document.getElementById('question');
+    const answersEl = document.getElementById('answers');
+    const nextBtn = document.getElementById('next-btn');
+    const resultEl = document.getElementById('result');
+    const backBtn = document.getElementById('back-btn');
+
+    function loadQuestion() {
+      nextBtn.disabled = true;
+      answersEl.innerHTML = '';
+      const q = quizData[currentQuestion];
+      questionEl.textContent = `${currentQuestion + 1}. ${q.question}`;
+      q.answers.forEach((ans, idx) => {
+        const btn = document.createElement('button');
+        btn.textContent = ans.text;
+        btn.onclick = () => {
+          document.querySelectorAll('#answers button').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          nextBtn.disabled = false;
+          answersEl.dataset.selected = idx;
+        };
+        answersEl.appendChild(btn);
+      });
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const selected = quizData[currentQuestion].answers[answersEl.dataset.selected];
+      selected.styles.forEach(style => {
+        scores[style] = (scores[style] || 0) + 1;
+      });
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    });
+
+    function finishQuiz() {
+      questionEl.textContent = '';
+      answersEl.innerHTML = '';
+      nextBtn.style.display = 'none';
+
+      const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      const top = sorted[0][0];
+      resultEl.innerHTML = `Seu estilo é: <strong>${top}</strong><br>${styleDescriptions[top]}`;
+      backBtn.style.display = 'inline-block';
+    }
+
+    backBtn.addEventListener('click', () => {
+      window.location.href = 'index.html';
+    });
+
+    loadQuestion();
+  </script>
+</body>
+</html>
